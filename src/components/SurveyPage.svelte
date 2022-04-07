@@ -76,7 +76,7 @@
       onConfirm: async () => {
         closeModal();
         try {
-          await sendReview({userPersona: UserPersona.TEST, review:  {...$feedback}, madlib: userPersona});
+          await sendReview({userPersona: UserPersona.TEST, review:  {...$feedback}, madlib: userPersona, chapterId: currentChapter});
           window.location.href = './thankyou.html';
         } catch (err) {
           console.error(err);

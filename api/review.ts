@@ -6,6 +6,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   const client = createClient({ url: process.env.DB_CONNECTION });
 
   try {
+    console.log('Connection to DB...');
     await client.connect();
   } catch (err) {
     return res.status(500).json({status: 'DB connection error'});
