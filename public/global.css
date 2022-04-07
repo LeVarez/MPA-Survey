@@ -1,0 +1,73 @@
+html, body {
+  width: 100%;
+  font-size: 90%;
+  height: 100%;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #f9f9f9;
+  color: #1e1e1e;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-style: normal;
+}
+
+a {
+  color: currentColor;
+  text-decoration: none;
+  border-bottom: 1px dotted currentColor;
+  transition: opacity .3s;
+}
+
+p a:hover {
+  opacity: .7;
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin: 1rem auto;
+  padding-bottom: 0;
+  line-height: 1.1;
+}
+
+h2 {
+  line-height: 1.875rem;
+}
+
+h3, select {
+  line-height: 1.35;
+}
+
+h4, p {
+  line-height: 1.5;
+}
+
+h2, h3, select {
+  font-weight: 300;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+
+h4 {
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+p, ul {
+  font-size: 1.1125rem;
+  line-height: 1.667rem;
+  font-weight: 300;
+}
+
+sup, sub {
+  line-height: 0;
+}

@@ -1,0 +1,12 @@
+{
+    "routes":[
+        {
+            "src": "/review",
+            "methods": [
+                "POST",
+                "GET"
+            ],
+            "dest": "/api/review.ts"
+        }
+    ]
+}
