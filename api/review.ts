@@ -5,8 +5,6 @@ export default async (req: VercelRequest, res: VercelResponse) => {
 
   const client = createClient({ url: process.env.DB_CONNECTION });
 
-  console.log(process.env);
-
   try {
     await client.connect();
   } catch (err) {

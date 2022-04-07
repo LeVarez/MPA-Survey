@@ -28,6 +28,7 @@
 
   onMount(async () =>{
     analysisDataset = await getReviews();
+    console.log(analysisDataset);
   });
 
   $: selectedUserPersona && analysisDataset && generateAnalysis();

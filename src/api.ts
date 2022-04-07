@@ -13,6 +13,7 @@ export interface Review {
   userPersona: UserPersona;
   madlib: string[];
   review: {[id: string]: Relevance};
+  chapterId: number;
 }
 
 export interface ServerReview extends Review {
