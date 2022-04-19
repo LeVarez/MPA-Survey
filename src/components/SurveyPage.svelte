@@ -63,7 +63,6 @@
         try {
           await sendReview(
             {
-              userPersona: UserPersona.TEST,
               review:  {...$feedback},
               madlib: userPersona,
               chapterId: currentChapter

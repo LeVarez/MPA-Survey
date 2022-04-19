@@ -1,9 +1,8 @@
 <script lang="ts">
-  import type { UserPersona } from "src/api";
 
   import DropdownSelector from "./DropdownSelector.svelte";
 
-  export var userPersona: UserPersona;
+  export var userPersona; //TODO not working yet
   export var chapter: number;
 
   const userPersonaItems = ['-1','1', '2', '3', '4', '5', '6', '7', '8'];
@@ -13,7 +12,7 @@
   let selectedChapter: string = 'A';
 
   $: userPersona = parseInt(selectedUserPersona);
-  $: chapter = parseInt(selectedChapter);
+  $: chapter = chapterItems.findIndex((e) => e === selectedChapter);
 </script>
 
 <div class="content">

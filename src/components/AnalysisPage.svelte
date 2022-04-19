@@ -5,7 +5,7 @@
   import Page from "./Page.svelte";
   import { chapter } from '../text';
   import AnalysisUserSelector from './AnalysisUserSelector.svelte';
-  import { getReviews, ServerReview, UserPersona } from '../api';
+  import { getReviews, ServerReview } from '../api';
   import { onMount } from 'svelte';
   import { Relevance } from 'src/relevance';
 
@@ -20,24 +20,24 @@
     .domain([-1, 3])
     .range(["#ed143daa", "#008000aa"]);
 
-  let selectedUserPersona: UserPersona;
+  let selectedUserPersona; //TODO: implement madlib selection
   let analysisDataset: ServerReview[];
-  let chapterNum: number = 0; // TODO: implement chapter selection
+  let chapterNum: number = 0;
   let content: Token[] = chapter[0];
   let sentenceHighlights: Content['$$prop_def']['sentenceHighlights'] = {};
 
   onMount(async () =>{
     analysisDataset = await getReviews();
-    console.log(analysisDataset);
   });
 
   $: chapterNum && selectedUserPersona && analysisDataset && generateAnalysis();
 
-  $: content = chapter[(chapterNum > 0? chapterNum - 1 : 0)];
+  $: content = chapter[chapterNum];
 
   function generateAnalysis() {
-    const submissions = analysisDataset.filter(review => review.userPersona === selectedUserPersona && review.chapterId === (chapterNum - 1));
-    console.log(chapterNum);
+    const submissions = analysisDataset.filter(review => {
+      return review.chapterId === (chapterNum)
+    });
     const allFeedback: [string, Relevance][] = submissions
       .map(({review}) => Object.entries(review))
       .reduce((acc, curr) => acc.concat(curr), []);
@@ -46,8 +46,6 @@
     allFeedback.forEach(([id, relevance]) => {
       scoresGrouped[id] = [...(scoresGrouped[id] || []), scores[relevance]];
     });
-
-    console.log(allFeedback);
 
     const sentenceColors: {[id: string]: string} = {};
     Object.entries(scoresGrouped).forEach(([id, scores]) => {

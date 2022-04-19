@@ -1,16 +1,7 @@
 import axios from 'axios';
 import type { Relevance } from './relevance';
 
-export enum UserPersona {
-  TEST = -1,
-  MPAPlanner,
-  MPAManager,
-  CommunityOrganizer,
-  LMMAPractitioner,
-}
-
 export interface Review {
-  userPersona: UserPersona;
   madlib: string[];
   review: {[id: string]: Relevance};
   chapterId: number;

@@ -11,6 +11,7 @@ export default async (req: VercelRequest, res: VercelResponse) => {
   } catch (err) {
     return res.status(500).json({status: 'DB connection error'});
   }
+  console.log('Connected to DB');
 
   if (req.method === 'GET'){
     const keys = await client.keys("review:*");
