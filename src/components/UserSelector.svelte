@@ -1,6 +1,6 @@
 <script lang="ts">
   import Button from "./Button.svelte";
-
+  import { setCookie, getCookie } from "src/util";
   import DropdownSelector from "./DropdownSelector.svelte";
 
   export var userPersona: string[];
@@ -15,7 +15,15 @@
   let objective: string;
   let objectiveVerb: string;
   let actionSubject: string;
-
+  let userPersonaCookie = getCookie('userPersona');
+  console.log(userPersonaCookie);
+  if(userPersonaCookie !== '') {
+    let tempParsedCookie = JSON.parse(userPersonaCookie);
+    typeUser = tempParsedCookie[0];
+    objective = tempParsedCookie[1];
+    objectiveVerb = tempParsedCookie[2];
+    actionSubject = tempParsedCookie[3];
+  }
   $: userPersona = [typeUser, objective, objectiveVerb, actionSubject];
 
 </script>
@@ -28,7 +36,7 @@
     <DropdownSelector bind:value={actionSubject} items={actionSubjectItems}/> .
   </div>
 
-  <Button on:click={() => selectionCompleted = true}>Next</Button>
+  <Button on:click={() => {selectionCompleted = true; setCookie('userPersona', JSON.stringify(userPersona));}}>Next</Button>
 </div>
 
   <style lang="scss">

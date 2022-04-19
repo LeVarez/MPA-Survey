@@ -22,7 +22,7 @@
 
   let selectedUserPersona: UserPersona;
   let analysisDataset: ServerReview[];
-  let chapterNum: number; // TODO: implement chapter selection
+  let chapterNum: number = 0; // TODO: implement chapter selection
   let content: Token[] = chapter[0];
   let sentenceHighlights: Content['$$prop_def']['sentenceHighlights'] = {};
 
@@ -31,11 +31,13 @@
     console.log(analysisDataset);
   });
 
-  $: selectedUserPersona && analysisDataset && generateAnalysis();
+  $: chapterNum && selectedUserPersona && analysisDataset && generateAnalysis();
+
+  $: content = chapter[(chapterNum > 0? chapterNum - 1 : 0)];
 
   function generateAnalysis() {
-    const submissions = analysisDataset.filter(review => review.userPersona === selectedUserPersona);
-
+    const submissions = analysisDataset.filter(review => review.userPersona === selectedUserPersona && review.chapterId === (chapterNum - 1));
+    console.log(chapterNum);
     const allFeedback: [string, Relevance][] = submissions
       .map(({review}) => Object.entries(review))
       .reduce((acc, curr) => acc.concat(curr), []);
@@ -44,6 +46,8 @@
     allFeedback.forEach(([id, relevance]) => {
       scoresGrouped[id] = [...(scoresGrouped[id] || []), scores[relevance]];
     });
+
+    console.log(allFeedback);
 
     const sentenceColors: {[id: string]: string} = {};
     Object.entries(scoresGrouped).forEach(([id, scores]) => {

@@ -10,22 +10,7 @@
   import Modal from './Modal.svelte';
   import AdjectiveDefinition from './AdjectiveDefinition.svelte';
   import { Relevance, highlightColors, relevanceOptions } from "src/relevance";
-
-  const setCookie = (name, value, days = 7, path = '/') => {
-    const expires = new Date(Date.now() + days * 864e5).toUTCString();
-    document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=' + path;
-  };
-
-  const getCookie = (name) => {
-    return document.cookie.split('; ').reduce((r, v) => {
-      const parts = v.split('=');
-      return parts[0] === name ? decodeURIComponent(parts[1]) : r;
-    }, '');
-  };
-
-  const deleteCookie = (name, path) => {
-    setCookie(name, '', -1, path);
-  };
+  import { getCookie, setCookie } from '../util/util';
 
   let currentChapter: number;
   let chapterCookie = getCookie('chapter');
@@ -76,11 +61,17 @@
       onConfirm: async () => {
         closeModal();
         try {
-          await sendReview({userPersona: UserPersona.TEST, review:  {...$feedback}, madlib: userPersona, chapterId: currentChapter});
+          await sendReview(
+            {
+              userPersona: UserPersona.TEST,
+              review:  {...$feedback},
+              madlib: userPersona,
+              chapterId: currentChapter
+            });
           window.location.href = './thankyou.html';
         } catch (err) {
           console.error(err);
-          // TODO: display error
+          window.location.href = './error.html';
           submitting = false;
         }
       },

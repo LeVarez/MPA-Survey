@@ -114,8 +114,24 @@ export const getMDWords = (str: string) => {
     .replace(/\*\*(.*)\*\*/gim, '<b>$1</b>')
     .replace(/\*(.*)\*/gim, '<i>$1</i>')
     .replace(/!\[(.*?)\]\((.*?)\)/gim, "<img alt='$1' src='$2' />")
-    .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2'>$1</a>")
+    .replace(/\[(.*?)\]\((.*?)\)/gim, "<a href='$2' target='_blank'>$1</a>")
     .replace(/\n$/gim, '<br />');
 
   return htmlText.trim();
+};
+
+export const setCookie = (name, value, days = 7, path = '/') => {
+  const expires = new Date(Date.now() + days * 864e5).toUTCString();
+  document.cookie = name + '=' + encodeURIComponent(value) + '; expires=' + expires + '; path=' + path;
+};
+
+export const getCookie = (name) => {
+  return document.cookie.split('; ').reduce((r, v) => {
+    const parts = v.split('=');
+    return parts[0] === name ? decodeURIComponent(parts[1]) : r;
+  }, '');
+};
+
+export const deleteCookie = (name, path) => {
+  setCookie(name, '', -1, path);
 };

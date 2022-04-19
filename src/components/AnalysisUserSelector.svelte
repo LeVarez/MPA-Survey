@@ -7,10 +7,10 @@
   export var chapter: number;
 
   const userPersonaItems = ['-1','1', '2', '3', '4', '5', '6', '7', '8'];
-  const chapterItems = ['1', '2', '3'];
+  const chapterItems = ['A', 'B', 'C'];
 
   let selectedUserPersona: string;
-  let selectedChapter: string;
+  let selectedChapter: string = 'A';
 
   $: userPersona = parseInt(selectedUserPersona);
   $: chapter = parseInt(selectedChapter);
